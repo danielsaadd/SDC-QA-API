@@ -1,0 +1,31 @@
+{
+  "name": "sdc-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server-dev": "npx nodemon --watch . index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsaadd/SDC-QA-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielsaadd/SDC-QA-API/issues"
+  },
+  "homepage": "https://github.com/danielsaadd/SDC-QA-API#readme",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.0",
+    "mysql2": "^3.3.2",
+    "nodemon": "^2.0.22",
+    "pg": "^8.11.0",
+    "sequelize": "^6.31.1"
+  }
+}

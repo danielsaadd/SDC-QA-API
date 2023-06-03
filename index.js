@@ -90,5 +90,8 @@ app.get('/qa/questions', async (request, response) => {
   }
 });
 
+app.get("/loaderio-596396bee177dba3fe7c26c0a9cdc809", (req, res) => {
+  res.status(200).send("loaderio-596396bee177dba3fe7c26c0a9cdc809")
+})
 app.listen(process.env.PORT);
 console.log(`Listening at http://localhost:${process.env.PORT}`);

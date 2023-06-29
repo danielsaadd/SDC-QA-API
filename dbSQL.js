@@ -1,20 +1,7 @@
-// const mysql = require("mysql2")
-// const Promise = require('bluebird')
-// require("dotenv").config();
 
-// const connection = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   database: process.env.DB_NAME,
-// })
-
-// const db = Promise.promisifyAll(connection, {multiArgs: true})
-
-// db.connectAsync()
 
 const { Pool } = require('pg')
 require("dotenv").config();
-// const { Sequelize, DataTypes } = require('sequelize');
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -23,9 +10,9 @@ const pool = new Pool({
   password: process.env.DB_PASS
 })
 
-let client;
+// let client;
 const initalizeDB = async() => {
-  client = await pool.connect()
+  const client = await pool.connect()
   await client.query('CREATE SCHEMA IF NOT EXISTS prodReview;');
 
   await client.query(`
@@ -63,13 +50,9 @@ const initalizeDB = async() => {
       photo_url VARCHAR(255)
       );
   `)
+  client?.release()
 }
 initalizeDB()
-
-// const getRow = async () => {
-//   const client = await pool.connect()
-//   return client.query(`select * from "photos" WHERE "photo_id" = 29;`)
-// }
 
 module.exports.pool = pool
 
@@ -80,50 +63,16 @@ module.exports.pool = pool
 // COPY "photos"("photo_id","answer_id","photo_url") FROM '/Users/danielsaad/Documents/seip2303/SDC-API/answers_photos.csv' DELIMITER','CSV HEADER;
 
 
-//   .then(() => console.log(`connected to MySQL as id: ${db.threadId}`))
-//   .then(() =>-
-//     db.queryAsync(
-//       `CREATE TABLE IF NOT EXISTS product (
-//         product_id INT NOT NULL PRIMARY KEY
-//       );`
-//     )
-//   )
-//   .then(() =>
-//     db.queryAsync(
-//       `CREATE TABLE IF NOT EXISTS questions (
-//         question_id INT NOT NULL PRIMARY KEY,
-//         question_body VARCHAR(255),
-//         question_date VARCHAR(255),
-//         asker_name VARCHAR(255),
-//         question_helpfulness INT,
-//         reported BOOLEAN,
-//         product_id INT NOT NULL,
-//         FOREIGN KEY (product_id) REFERENCES product(product_id)
-//         );`
-//     )
-//   )
-//   .then(() =>
-//     db.queryAsync(
-//       `CREATE TABLE IF NOT EXISTS answers (
-//         answer_id INT NOT NULL PRIMARY KEY,
-//         body VARCHAR(255),
-//         date VARCHAR(255),
-//         answerer_name VARCHAR(255),
-//         helpfulness INT,
-//         question_id INT NOT NULL,
-//         FOREIGN KEY (question_id) REFERENCES questions(question_id)
-//         );`
-//     )
-//   )
-//   .then(() =>
-//     db.queryAsync(
-//       `CREATE TABLE IF NOT EXISTS photos (
-//         photo_id INT NOT NULL PRIMARY KEY,
-//         photo_url VARCHAR(255),
-//         answer_id INT NOT NULL,
-//         FOREIGN KEY (answer_id) REFERENCES answers(answer_id)
-//         );`
-//     )
-//   )
-//   .catch((err) => console.log('this is an error', err))
-// module.exports.db = db
+// scp -i ./AWS-launch/sdc-db-key-pair.pem ./AWS-launch/onlineproducts.pgsql ubuntu@18.117.157.110:/home/ubuntu/
+
+// psql yelp < /home/ubuntu/yelp.pgsql
+
+// CREATE INDEX idx_feature_id ON "Features" (feature_id);
+
+// CREATE INDEX idx_question_product_id ON "questions" (product_id);
+
+// CREATE INDEX idx_answers_question_id ON "answers" (question_id);
+
+// CREATE INDEX idx_photos_answer_id ON "answers" (answer_id);
+
+// 4.2 sec -> 2.6 sec -> 201 milsec -> 178 milsec

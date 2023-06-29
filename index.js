@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require('express')
-const {pool} = require("./dbSQL");
+const {pool} = require("./dbSQL.js");
 // const { Sequelize, DataTypes } = require('sequelize');
 
 const app = express();
@@ -8,8 +8,9 @@ const app = express();
 app.use(express.json())
 
 app.get('/qa/questions', async (request, response) => {
+  const client = await pool.connect();
   try {
-    const client = await pool.connect();
+
     const questionQuery = `
       SELECT * FROM questions
       WHERE product_id = ${request.query.product_id}
@@ -88,6 +89,8 @@ app.get('/qa/questions', async (request, response) => {
     console.error(error);
     response.status(500).json({ error: 'Internal server error' });
   }
+  client?.release()
+
 });
 
 app.get("/loaderio-596396bee177dba3fe7c26c0a9cdc809", (req, res) => {

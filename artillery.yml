@@ -1,0 +1,20 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10
+      arrivalRate: 10
+
+scenarios:
+  - name: "Scenario 1"
+    flow:
+      - get:
+          url: "/qa/questions?product_id=1&count=5"
+
+
+          # "$(npm bin)"/artillery run artillery.yml
+
+
+
+          # "$(npm bin)"/artillery run artillery.yml --output fifth.txt
+
+          # "$(npm bin)"/artillery report fifth.txt
